@@ -1,0 +1,1 @@
+export const LOGO_URL = "/assets/Emblem_of_Nepal.png"

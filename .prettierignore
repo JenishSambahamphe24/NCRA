@@ -1,0 +1,9 @@
+**/build
+**/public
+pnpm-lock.yaml
+routeTree.gen.ts
+
+
+/node_modules
+/dist
+/.pnpm-store
