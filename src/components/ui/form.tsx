@@ -16,6 +16,10 @@ import {
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 
+export interface FormLabelProps
+  extends React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> {
+  required?: boolean;
+}
 const Form = FormProvider;
 
 type FormFieldContextValue<
@@ -37,7 +41,8 @@ const FormField = <
   ...props
 }: ControllerProps<TFieldValues, TName> & { className?: string }) => {
   return (
-    <div className={cn("w-full", className)}>
+    // Removed w-full to avoid conflicts with MUI Grid
+    <div className={cn("", className)}>
       <FormFieldContext.Provider value={{ name: props.name }}>
         <Controller {...props} />
       </FormFieldContext.Provider>
@@ -80,31 +85,35 @@ function FormItem({ className, ...props }) {
   const id = React.useId();
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div data-slot="form-item" className={cn("flex flex-col gap-2 w-full", className)} {...props} />
+      {/* Removed w-full to work with MUI Grid sizing */}
+      <div data-slot="form-item" className={cn("flex flex-col gap-2", className)} {...props} />
     </FormItemContext.Provider>
   );
 }
 
-function FormLabel({
-  className,
+const FormLabel = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  FormLabelProps
+>(({ className, required, children, ...props }, ref) => (
+  <LabelPrimitive.Root
+    ref={ref}
+    className={cn("text-sm font-medium leading-none", className)}
+    {...props}
+  >
+    {children}
+    {required && <span className="text-red-500 ml-0.5">*</span>}
+  </LabelPrimitive.Root>
+));
+
+function FormControl({
+  children,
   ...props
-}: React.ComponentProps<typeof LabelPrimitive.Root>) {
-  const { error, formItemId } = useFormField();
-
-  return (
-    <Label
-      data-slot="form-label"
-      data-error={!!error}
-      className={cn("data-[error=true]:text-destructive", className)}
-      htmlFor={formItemId}
-      {...props}
-    />
-  );
-}
-
-function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
+}: React.ComponentProps<typeof Slot>) {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
+
+  // Ensure we pass only a single React element to Slot
+  const child = React.Children.only(children);
 
   return (
     <Slot
@@ -117,7 +126,9 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
       }
       aria-invalid={!!error}
       {...props}
-    />
+    >
+      {child}
+    </Slot>
   );
 }
 
@@ -164,3 +175,4 @@ export {
   FormMessage,
   FormField,
 };
+

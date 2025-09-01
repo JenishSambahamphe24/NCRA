@@ -15,12 +15,13 @@ const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
     );
 
     return (
-      <div className="relative">
+      <div className="relative w-full">
         <Input
           ref={ref}
           type={isPasswordVisible ? "text" : "password"}
           placeholder="•••••••••"
           {...inputProps}
+          className="w-full"
         />
         <button
           type="button"

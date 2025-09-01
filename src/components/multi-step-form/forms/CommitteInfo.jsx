@@ -1,9 +1,8 @@
-// components/CommitteeForm.jsx
-import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Grid } from "@mui/material";
 
 export const CommitteeForm = ({ methods }) => {
     const { fields, append, remove } = useFieldArray({
@@ -37,26 +36,22 @@ export const CommitteeForm = ({ methods }) => {
     };
 
     return (
-        <div className="space-y-6">
-            {/* Header */}
+        <Grid container direction='column' spacing={2}>
             <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold">Committee Members</h3>
                 <Button type="button" variant="outline" onClick={addMember} className="flex items-center gap-1">
-                    <PlusCircle className="h-4 w-4" />
+                    <PlusCircle className="h-4 w-4 text-xs" />
                     Add Member
                 </Button>
             </div>
 
-            {/* Empty State */}
             {fields.length === 0 ? (
                 <Card className="p-6 text-center text-gray-500">
                     No committee members added yet. Click "Add Member" to begin.
                 </Card>
             ) : (
-                <div className="space-y-6">
+                <>
                     {fields.map((field, index) => (
-                        <Card key={field.id} className="p-4 relative">
-                            {/* Remove Button */}
+                        <Card key={field.id} className="px-4 py-2 w-full relative">
                             <button
                                 type="button"
                                 onClick={() => remove(index)}
@@ -64,12 +59,9 @@ export const CommitteeForm = ({ methods }) => {
                             >
                                 <Trash2 className="h-4 w-4" />
                             </button>
-
-                            {/* Member Form */}
-                            <h4 className="text-md font-medium mb-4">Committee Member {index + 1}</h4>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {/* Committee Type */}
-                                <div>
+                            <h4 className="text-md font-medium mb-1">Committee Member {index + 1}</h4>
+                            <Grid container rowSpacing={1} columnSpacing={2}>
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">Committee Type</label>
                                     <select
                                         value={methods.watch(`committee.${index}.committeeFormulationAssembly`) || ""}
@@ -83,11 +75,10 @@ export const CommitteeForm = ({ methods }) => {
                                         <option value="supervisory">Supervisory Committee</option>
                                         <option value="other">Other</option>
                                     </select>
-                                </div>
 
-                                {/* Position */}
-                                <div>
-                                    <label className="block text-sm font-medium mb-1">Position</label>
+                                </Grid>
+                                <Grid size={{ xs: 12, sm: 2 }}>
+                                    <label className=" text-sm font-medium ">Position</label>
                                     <select
                                         value={methods.watch(`committee.${index}.position`) || ""}
                                         onChange={(e) =>
@@ -102,10 +93,9 @@ export const CommitteeForm = ({ methods }) => {
                                         <option value="treasurer">Treasurer</option>
                                         <option value="member">Member</option>
                                     </select>
-                                </div>
+                                </Grid>
 
-                                {/* First Name */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">First Name</label>
                                     <input
                                         type="text"
@@ -116,10 +106,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                {/* Middle Name */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">Middle Name</label>
                                     <input
                                         type="text"
@@ -130,10 +119,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                {/* Last Name */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">Last Name</label>
                                     <input
                                         type="text"
@@ -144,10 +132,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                {/* Gender */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">Gender</label>
                                     <select
                                         value={methods.watch(`committee.${index}.gender`) || ""}
@@ -161,10 +148,9 @@ export const CommitteeForm = ({ methods }) => {
                                         <option value="female">Female</option>
                                         <option value="other">Other</option>
                                     </select>
-                                </div>
+                                </Grid>
 
-                                {/* Email */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 3 }}>
                                     <label className="block text-sm font-medium mb-1">Email</label>
                                     <input
                                         type="email"
@@ -175,10 +161,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                {/* Phone */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">Phone Number</label>
                                     <input
                                         type="tel"
@@ -189,10 +174,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                {/* PAN */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">PAN Number</label>
                                     <input
                                         type="text"
@@ -203,10 +187,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                {/* NID */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">National ID</label>
                                     <input
                                         type="text"
@@ -217,10 +200,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                {/* Province */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 3 }}>
                                     <label className="block text-sm font-medium mb-1">Province</label>
                                     <select
                                         value={methods.watch(`committee.${index}.province`) || ""}
@@ -238,10 +220,9 @@ export const CommitteeForm = ({ methods }) => {
                                         <option value="karnali">Karnali</option>
                                         <option value="sudurpashchim">Sudurpashchim</option>
                                     </select>
-                                </div>
+                                </Grid>
 
-                                {/* District */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 3 }}>
                                     <label className="block text-sm font-medium mb-1">District</label>
                                     <input
                                         type="text"
@@ -252,10 +233,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                {/* Local Level */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 3 }}>
                                     <label className="block text-sm font-medium mb-1">Local Level</label>
                                     <input
                                         type="text"
@@ -266,10 +246,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                {/* Ward No */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">Ward No.</label>
                                     <input
                                         type="number"
@@ -280,10 +259,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid >
 
-                                {/* House Number */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">House No.</label>
                                     <input
                                         type="text"
@@ -294,10 +272,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid >
 
-                                {/* Tole */}
-                                <div className="md:col-span-2">
+                                <Grid size={{ xs: 12, sm: 2 }}>
                                     <label className="block text-sm font-medium mb-1">Tole/Street</label>
                                     <input
                                         type="text"
@@ -308,10 +285,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                {/* Education */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 3 }}>
                                     <label className="block text-sm font-medium mb-1">Highest Education</label>
                                     <select
                                         value={methods.watch(`committee.${index}.highestEducation`) || ""}
@@ -328,10 +304,9 @@ export const CommitteeForm = ({ methods }) => {
                                         <option value="masters">Masters</option>
                                         <option value="doctorate">Doctorate</option>
                                     </select>
-                                </div>
+                                </Grid>
 
-                                {/* PAN Card Upload */}
-                                <div>
+                                <Grid size={{ xs: 12, sm: 3 }}>
                                     <label className="block text-sm font-medium mb-1">PAN Card</label>
                                     <input
                                         type="file"
@@ -342,9 +317,9 @@ export const CommitteeForm = ({ methods }) => {
                                         }}
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
+                                </Grid>
 
-                                <div>
+                                <Grid size={{ xs: 12, sm: 3 }}>
                                     <label className="block text-sm font-medium mb-1">National ID Card</label>
                                     <input
                                         type="file"
@@ -355,12 +330,13 @@ export const CommitteeForm = ({ methods }) => {
                                         }}
                                         className="w-full p-2 border rounded"
                                     />
-                                </div>
-                            </div>
+                                </Grid>
+                            </Grid>
                         </Card>
                     ))}
-                </div>
-            )}
-        </div>
+                </>
+            )
+            }
+        </Grid >
     );
 };

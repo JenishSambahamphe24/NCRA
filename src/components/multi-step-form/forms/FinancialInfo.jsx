@@ -6,24 +6,20 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Grid } from "@mui/material";
 
 export const FinancialInfo = ({ methods }) => {
     const { control } = methods;
-
     return (
-        <div className="space-y-6">
-            <h3 className="text-lg font-semibold">Financial Info</h3>
-            <p className="text-sm text-gray-500">
-                Provide financial details of the cooperative.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Grid container spacing={2}>
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={control}
                     name="totalShareAmount"
                     render={({ field }) => (
-                        <FormItem className="w-60">
-                            <FormLabel>
-                                Total Share Amount <span className="text-red-500">*</span>
+                        <FormItem >
+                            <FormLabel required>
+                                Total Share Amount
                             </FormLabel>
                             <FormControl>
                                 <Input
@@ -39,15 +35,16 @@ export const FinancialInfo = ({ methods }) => {
                         </FormItem>
                     )}
                 />
+            </Grid>
 
-                {/* Total Number of Shares */}
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={control}
                     name="numberOfTotalShare"
                     render={({ field }) => (
-                        <FormItem className="w-70">
-                            <FormLabel>
-                                Total Number of Shares <span className="text-red-500">*</span>
+                        <FormItem >
+                            <FormLabel required>
+                                Total Share Amount
                             </FormLabel>
                             <FormControl>
                                 <Input
@@ -63,15 +60,16 @@ export const FinancialInfo = ({ methods }) => {
                         </FormItem>
                     )}
                 />
+            </Grid>
 
-                {/* Total Male Members */}
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={control}
                     name="noOfTotalMaleMember"
                     render={({ field }) => (
-                        <FormItem className="w-60">
-                            <FormLabel>
-                                Total Male Members <span className="text-red-500">*</span>
+                        <FormItem >
+                            <FormLabel required>
+                                Total Male Members
                             </FormLabel>
                             <FormControl>
                                 <Input
@@ -87,15 +85,16 @@ export const FinancialInfo = ({ methods }) => {
                         </FormItem>
                     )}
                 />
+            </Grid>
 
-                {/* Total Female Members */}
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={control}
                     name="noOfTotalFemaleMember"
                     render={({ field }) => (
-                        <FormItem className="w-60">
-                            <FormLabel>
-                                Total Female Members <span className="text-red-500">*</span>
+                        <FormItem >
+                            <FormLabel required>
+                                Total Female Members
                             </FormLabel>
                             <FormControl>
                                 <Input
@@ -111,13 +110,14 @@ export const FinancialInfo = ({ methods }) => {
                         </FormItem>
                     )}
                 />
+            </Grid>
 
-                {/* Total Saving Amount */}
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={control}
                     name="totalSavingAmount"
                     render={({ field }) => (
-                        <FormItem className="w-48">
+                        <FormItem >
                             <FormLabel>Total Saving Amount</FormLabel>
                             <FormControl>
                                 <Input
@@ -133,13 +133,14 @@ export const FinancialInfo = ({ methods }) => {
                         </FormItem>
                     )}
                 />
+            </Grid>
 
-                {/* Total Liabilities */}
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={control}
                     name="totalLiabilities"
                     render={({ field }) => (
-                        <FormItem className="w-48">
+                        <FormItem >
                             <FormLabel>Total Liabilities</FormLabel>
                             <FormControl>
                                 <Input
@@ -156,12 +157,14 @@ export const FinancialInfo = ({ methods }) => {
                     )}
                 />
 
-                {/* Loan in Operation */}
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={control}
                     name="loanInOperation"
                     render={({ field }) => (
-                        <FormItem className="w-48">
+                        <FormItem >
                             <FormLabel>Loan in Operation</FormLabel>
                             <FormControl>
                                 <Input
@@ -177,13 +180,14 @@ export const FinancialInfo = ({ methods }) => {
                         </FormItem>
                     )}
                 />
+            </Grid>
 
-                {/* Total Institutional Assets */}
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={control}
                     name="totalAmountOfInstitutionalAssets"
                     render={({ field }) => (
-                        <FormItem className="w-52">
+                        <FormItem >
                             <FormLabel>Total Institutional Assets</FormLabel>
                             <FormControl>
                                 <Input
@@ -199,7 +203,8 @@ export const FinancialInfo = ({ methods }) => {
                         </FormItem>
                     )}
                 />
-            </div>
-        </div>
+
+            </Grid>
+        </Grid>
     );
 };

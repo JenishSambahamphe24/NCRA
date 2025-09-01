@@ -222,7 +222,6 @@ export const FormProvider = ({ children, email }: FormProviderProps) => {
     if (cooperativeAddressData) {
       updateFormData("address", cooperativeAddressData);
       if (currentStepId === 'address') {
-        console.log('Resetting address form with:', cooperativeAddressData);
         methods.reset(cooperativeAddressData);
       }
     }
@@ -310,8 +309,6 @@ export const FormProvider = ({ children, email }: FormProviderProps) => {
     mutationFn: uploadCooperativeMembersFile,
   });
 
-
-  console.log(currentStepId)
   const saveCurrentStep = async () => {
     try {
       const currentStepData = methods.getValues();

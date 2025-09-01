@@ -21,15 +21,11 @@ import { useEffect } from "react";
 export const Route = createFileRoute("/register")({
   component: RouteComponent,
   beforeLoad: async () => {
-    // Skip auth check on server side to avoid hydration issues
     if (typeof window === "undefined") {
       return;
     }
-
-    // Wait for auth store to be ready
     const store = useAuthStore.getState();
     if (!store.isHydrated) {
-      // Wait a bit for hydration
       let attempts = 0;
       while (!useAuthStore.getState().isHydrated && attempts < 10) {
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -37,9 +33,7 @@ export const Route = createFileRoute("/register")({
       }
     }
 
-    // Initialize auth if needed
     await useAuthStore.getState().initializeAuth();
-
     const { isAuthenticated, checkTokenValidity } = useAuthStore.getState();
     const isValid = isAuthenticated && checkTokenValidity();
 
@@ -53,14 +47,10 @@ function RouteComponent() {
   const navigate = useNavigate();
   const { registerEmail, isLoading, error, isAuthenticated, clearError } =
     useAuthStore();
-
-  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
       navigate({ to: "/dashboard" });
     }
-
-    // Clear any previous errors when component mounts
     return () => clearError();
   }, [isAuthenticated, navigate, clearError]);
 
@@ -77,11 +67,9 @@ function RouteComponent() {
       toast.success("Registration email sent successfully");
       navigate({ to: "/verify-otp", search: { email: values.email } });
     } catch (error) {
-      // Error is already handled by the store
     }
   };
 
-  // Show error from auth store if present
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -110,22 +98,19 @@ function RouteComponent() {
               className="space-y-4"
             >
               <FormField
+                className="w-full"
                 name="email"
                 control={registerForm.control}
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className='w-full'>
                     <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <LuAtSign className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                        <Input
-                          disabled={pendingSubmit}
-                          placeholder="yourname@email.com"
-                          autoComplete="email"
-                          className="pl-8"
-                          {...field}
-                        />
-                      </div>
+                    <FormControl >
+                      <Input
+                        disabled={pendingSubmit}
+                        placeholder="@yourname@email.com"
+                        autoComplete="email"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
