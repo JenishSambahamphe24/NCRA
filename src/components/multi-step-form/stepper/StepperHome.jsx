@@ -2,70 +2,13 @@
 
 import React, { useState } from "react"; // Add useState import
 import { useForm } from "react-hook-form";
-import { Check, MapPin, DollarSign, Building, Users, UserCheck, Upload } from "lucide-react";
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { AddressInfo } from "../forms/AddressInfo";
-import { FinancialInfo } from "../forms/FinancialInfo";
-import { BasicInfo } from "../forms/BasicInfo";
-import { CommitteeForm } from "../forms/CommitteInfo";
-import { ExecutiveForm } from "../forms/ExecutiveForm";
-import { DocUploadForm } from "../forms/DocUploadForm";
-import { OfficialDocForm } from "../forms/OfficialDocForm";
+import { steps } from "../hooks/useStepForm";
 
-const steps = [
-  {
-    id: 'basic',
-    title: 'Basic Info',
-    description: 'Provide basic information about the cooperative.',
-    icon: Building,
-    component: BasicInfo,
-  },
-  {
-    id: 'address',
-    title: 'Address Info',
-    description: 'Enter the address details of the cooperative.',
-    icon: MapPin,
-    component: AddressInfo,
-  },
-  {
-    id: 'financial',
-    title: 'Financial Info',
-    description: 'Provide financial details of the cooperative.',
-    icon: DollarSign,
-    component: FinancialInfo,
-  },
-  {
-    id: 'committee',
-    title: 'Committee',
-    description: 'Enter the Committee details of the cooperative.',
-    icon: Users,
-    component: CommitteeForm,
-  },
-  {
-    id: 'executive',
-    title: 'Executive Members',
-    description: 'Enter the Committee details of the cooperative.',
-    icon: UserCheck,
-    component: ExecutiveForm,
-  },
-  {
-    id: 'documents',
-    title: 'Registration Documents',
-    description: 'Enter the Committee details of the cooperative.',
-    icon: Upload,
-    component: DocUploadForm,
-  },
-  {
-    id: 'officialDocuments',
-    title: 'Other official documents',
-    description: 'Enter the Committee details of the cooperative.',
-    icon: Upload,
-    component: OfficialDocForm,
-  },
-];
 
 const StepIndicator = ({ steps, currentStep, className }) => {
   return (
@@ -78,7 +21,6 @@ const StepIndicator = ({ steps, currentStep, className }) => {
 
           return (
             <React.Fragment key={step.id}>
-              {/* Step Container */}
               <div className="flex flex-col items-center">
                 <div
                   className={cn(

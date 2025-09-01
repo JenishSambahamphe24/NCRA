@@ -22,8 +22,7 @@ import { useFormContext } from "@/context/form-context";
 export const BasicInfo = ({ methods }) => {
   const { data: fiscalYears, isLoading, error } = useFiscalYears();
   const { formData } = useFormContext()
-  console.log(formData)
-  console.log(fiscalYears)
+  const { basic } = formData;
   const { control, watch } = methods;
   const anyBranchOffice = watch("anyBranchOffice");
   const registeredFederation = watch("registeredFederation");
@@ -35,7 +34,7 @@ export const BasicInfo = ({ methods }) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item size={{ xs: 12, sm: 2 }}>
+      <Grid size={{ xs: 12, sm: 2 }}>
         <FormField
           control={control}
           name="cooperativeCode"
@@ -51,7 +50,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 2 }}>
+      <Grid size={{ xs: 12, sm: 2 }}>
         <FormField
           control={control}
           name="fiscalYearId"
@@ -81,7 +80,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 3 }}>
+      <Grid size={{ xs: 12, sm: 3 }}>
         <FormField
           control={control}
           name="registrationNo"
@@ -97,7 +96,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 5 }}>
+      <Grid size={{ xs: 12, sm: 5 }}>
         <FormField
           control={control}
           name="coopsFullNameNep"
@@ -113,7 +112,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 4 }}>
+      <Grid size={{ xs: 12, sm: 4 }}>
         <FormField
           control={control}
           name="coopsFullNameEng"
@@ -129,7 +128,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 3 }}>
+      <Grid size={{ xs: 12, sm: 3 }}>
         <FormField
           control={control}
           name="contactEmail"
@@ -145,7 +144,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 2.5 }}>
+      <Grid size={{ xs: 12, sm: 2.5 }}>
         <FormField
           control={control}
           name="contactMobilePhone"
@@ -161,7 +160,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 2.5 }}>
+      <Grid size={{ xs: 12, sm: 2.5 }}>
         <FormField
           control={control}
           name="contactOfficePhone"
@@ -177,7 +176,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 3 }}>
+      <Grid size={{ xs: 12, sm: 3 }}>
         <FormField
           control={control}
           name="webUrl"
@@ -193,7 +192,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 2 }}>
+      <Grid size={{ xs: 12, sm: 2 }}>
         <FormField
           control={control}
           name="contactPerson"
@@ -209,7 +208,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 2 }}>
+      <Grid size={{ xs: 12, sm: 2 }}>
         <FormField
           control={control}
           name="panNo"
@@ -225,7 +224,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 2 }}>
+      <Grid size={{ xs: 12, sm: 2 }}>
         <FormField
           control={control}
           name="registeredDateNep"
@@ -245,7 +244,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 2 }}>
+      <Grid size={{ xs: 12, sm: 2 }}>
         <FormField
           control={control}
           name="registerDate"
@@ -261,7 +260,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 2 }}>
+      <Grid size={{ xs: 12, sm: 2 }}>
         <FormField
           control={control}
           name="registerYear"
@@ -277,7 +276,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 2 }}>
+      <Grid size={{ xs: 12, sm: 2 }}>
         <FormField
           control={control}
           name="registeredFiscalYear"
@@ -293,7 +292,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 3 }}>
+      <Grid size={{ xs: 12, sm: 3 }}>
         <FormField
           control={control}
           name="classificationOfCooperative"
@@ -318,7 +317,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 3 }}>
+      <Grid size={{ xs: 12, sm: 3 }}>
         <FormField
           control={control}
           name="workingArea"
@@ -343,7 +342,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 12, sm: 2 }}>
+      <Grid size={{ xs: 12, sm: 2 }}>
         <FormField
           control={control}
           name="anyBranchOffice"
@@ -371,7 +370,7 @@ export const BasicInfo = ({ methods }) => {
       </Grid>
 
       {anyBranchOffice && (
-        <Grid item size={{ xs: 12, sm: 2 }}>
+        <Grid size={{ xs: 12, sm: 2 }}>
           <FormField
             control={control}
             name="numberOfBranch"
@@ -393,7 +392,7 @@ export const BasicInfo = ({ methods }) => {
         </Grid>
       )}
 
-      <Grid item size={{ xs: 12, sm: 3 }}>
+      <Grid size={{ xs: 12, sm: 3 }}>
         <FormField
           control={control}
           name="coopsLogo"
@@ -417,7 +416,7 @@ export const BasicInfo = ({ methods }) => {
         />
       </Grid>
 
-      <Grid item size={{ xs: 3 }}>
+      <Grid size={{ xs: 3 }}>
         <FormField
           control={control}
           name="registeredFederation"
@@ -445,7 +444,7 @@ export const BasicInfo = ({ methods }) => {
       </Grid>
 
       {registeredFederation && (
-        <Grid item size={{ xs: 12 }}>
+        <Grid size={{ xs: 12 }}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pl-2">
             {[
               { name: "dscu", label: "District Subjective Cooperative Union Ltd." },
