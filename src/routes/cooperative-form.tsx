@@ -12,7 +12,6 @@ const CooperativeFormPage = () => {
     return null;
   }
 
-
   return (
     <FormProvider email={email} >
       <div className="w-full mx-auto py-6">

@@ -6,6 +6,7 @@ import {
   redirect,
 } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { Grid } from "@mui/material";
 import {
   Card,
   CardContent,
@@ -171,71 +172,73 @@ function LoginPage() {
                 onSubmit={loginForm.handleSubmit(onSubmit)}
                 className="space-y-4"
               >
-                <FormField
-                  name="email"
-                  control={loginForm.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <LuAtSign className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                          <Input
-                            disabled={pendingSubmit}
-                            placeholder="yourname@email.com"
-                            autoComplete="email"
-                            className="pl-8"
-                            {...field}
-                          />
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name="password"
-                  control={loginForm.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <LuLock className="absolute z-10 left-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                          <PasswordInput
-                            disabled={pendingSubmit}
-                            placeholder="********"
-                            autoComplete="password"
-                            className="pl-8"
-                            {...field}
-                          />
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  type="submit"
-                  className="w-full"
-                  loading={pendingSubmit}
-                >
-                  Sign in
-                </Button>
-                <div className="mt-6 text-center">
-                  <Typography variant="detail" className="text-gray-600">
-                    Don't have an account?
-                  </Typography>
-                  <Link
-                    to="/register"
-                    className={buttonVariants({
-                      variant: "link",
-                      className: "text-primary",
-                    })}
-                  >
-                    Register your financial cooperative now
-                  </Link>
-                </div>
+                <Grid container spacing={2}>
+                  <Grid size={{ xs: 12 }}>
+                    <FormField
+                      name="email"
+                      control={loginForm.control}
+                      render={({ field }) => (
+                        <FormItem className='w-full'>
+                          <FormLabel>Email</FormLabel>
+                          <FormControl>
+                            <Input
+                              disabled={pendingSubmit}
+                              placeholder="@yourname@email.com"
+                              autoComplete="email"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </Grid>
+                  <Grid size={{ xs: 12 }}>
+                    <FormField
+                      name="password"
+                      control={loginForm.control}
+                      render={({ field }) => (
+                        <FormItem className='w-full'>
+                          <FormLabel>Password</FormLabel>
+                          <FormControl>
+                            <PasswordInput
+                              disabled={pendingSubmit}
+                              placeholder="********"
+                              autoComplete="password"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                  </Grid>
+                  <Grid size={{ sm: 12 }}>
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      loading={pendingSubmit}
+                    >
+                      Sign in
+                    </Button>
+                    <div className="mt-6 text-center">
+                      <Typography variant="detail" className="text-gray-600">
+                        Don't have an account?
+                      </Typography>
+                      <Link
+                        to="/register"
+                        className={buttonVariants({
+                          variant: "link",
+                          className: "text-primary",
+                        })}
+                      >
+                        Register your financial cooperative now
+                      </Link>
+                    </div>
+
+                  </Grid>
+                </Grid>
               </form>
             </Form>
           </CardContent>

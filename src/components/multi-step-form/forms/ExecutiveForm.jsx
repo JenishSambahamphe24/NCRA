@@ -1,8 +1,7 @@
-import React from 'react';
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-
+import { Grid } from '@mui/material';
 
 export const ExecutiveForm = ({ methods }) => {
     const provinces = [
@@ -16,8 +15,8 @@ export const ExecutiveForm = ({ methods }) => {
     ];
 
     return (
-        <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Grid container spacing={2}>
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={methods.control}
                     name="province"
@@ -42,6 +41,9 @@ export const ExecutiveForm = ({ methods }) => {
                         </FormItem>
                     )}
                 />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={methods.control}
                     name="district"
@@ -55,9 +57,9 @@ export const ExecutiveForm = ({ methods }) => {
                         </FormItem>
                     )}
                 />
-            </div>
+            </Grid>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={methods.control}
                     name="localLevel"
@@ -71,7 +73,9 @@ export const ExecutiveForm = ({ methods }) => {
                         </FormItem>
                     )}
                 />
+            </Grid>
 
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={methods.control}
                     name="wardNo"
@@ -90,7 +94,10 @@ export const ExecutiveForm = ({ methods }) => {
                         </FormItem>
                     )}
                 />
+            </Grid>
 
+
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={methods.control}
                     name="houseNo"
@@ -104,21 +111,23 @@ export const ExecutiveForm = ({ methods }) => {
                         </FormItem>
                     )}
                 />
-            </div>
+            </Grid>
 
-            <FormField
-                control={methods.control}
-                name="tole"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Tole/Street</FormLabel>
-                        <FormControl>
-                            <Input placeholder="Enter tole or street name" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-        </div>
+            <Grid size={{ xs: 12, sm: 2 }}>
+                <FormField
+                    control={methods.control}
+                    name="tole"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Tole/Street</FormLabel>
+                            <FormControl>
+                                <Input placeholder="Enter tole or street name" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+        </Grid>
     );
 };

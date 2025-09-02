@@ -2,51 +2,26 @@
 
 import React, { useState } from "react"; // Add useState import
 import { useForm } from "react-hook-form";
-import { Check, MapPin, DollarSign, Building } from "lucide-react";
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { AddressInfo } from "../forms/AddressInfo";
-import { FinancialInfo } from "../forms/FinancialInfo";
-import { BasicInfo } from "../forms/BasicInfo";
+import { steps } from "../hooks/useStepForm";
 
-const steps = [
-  {
-    id: 'basic',
-    title: 'Basic Info',
-    description: 'Provide basic information about the cooperative.',
-    icon: Building,
-    component: BasicInfo,
-  },
-  {
-    id: 'address',
-    title: 'Address Info',
-    description: 'Enter the address details of the cooperative.',
-    icon: MapPin,
-    component: AddressInfo,
-  },
-  {
-    id: 'financial',
-    title: 'Financial Info',
-    description: 'Provide financial details of the cooperative.',
-    icon: DollarSign,
-    component: FinancialInfo,
-  },
-];
 
 const StepIndicator = ({ steps, currentStep, className }) => {
   return (
     <div className={cn("w-full py-2", className)}>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         {steps.map((step, index) => {
           const isCompleted = index < currentStep;
           const isCurrent = index === currentStep;
           const isUpcoming = index > currentStep;
 
           return (
-            <div key={step.id} className="flex items-center">
-              <div className="flex flex-col gap-1 items-center ml-1 mr-4">
+            <React.Fragment key={step.id}>
+              <div className="flex flex-col items-center">
                 <div
                   className={cn(
                     "flex items-center justify-center w-7 h-7 rounded-full border transition-all duration-200",
@@ -65,7 +40,7 @@ const StepIndicator = ({ steps, currentStep, className }) => {
                 </div>
 
                 {/* Step Label */}
-                <div className="hidden sm:block text-center">
+                <div className="hidden sm:block text-center mt-1">
                   <p
                     className={cn("text-xs font-medium", {
                       "text-blue-600": isCurrent,
@@ -78,19 +53,21 @@ const StepIndicator = ({ steps, currentStep, className }) => {
                 </div>
               </div>
 
-              {/* Connector Line */}
+              {/* Connector Line - Now properly fills space between icons */}
               {index < steps.length - 1 && (
-                <div
-                  className={cn(
-                    "hidden sm:block flex-1 h-px min-w-6 mx-2 transition-all duration-200",
-                    {
-                      "bg-blue-600": isCompleted,
-                      "bg-gray-300": !isCompleted,
-                    },
-                  )}
-                />
+                <div className="hidden sm:block flex-1 px-4">
+                  <div
+                    className={cn(
+                      "h-[2px] w-full transition-all duration-200",
+                      {
+                        "bg-blue-600": isCompleted,
+                        "bg-gray-300": !isCompleted,
+                      },
+                    )}
+                  />
+                </div>
               )}
-            </div>
+            </React.Fragment>
           );
         })}
       </div>
@@ -141,7 +118,6 @@ const StepperHome = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log('Step data:', data);
     await handleNext();
   };
 
@@ -154,15 +130,12 @@ const StepperHome = () => {
         <p className="text-gray-600 text-center mb-4 text-sm">
           Please fill out all the required information in each step
         </p>
-
-        {/* Step Indicator */}
         <StepIndicator
           steps={steps}
           currentStep={currentStep}
           className="w-full overflow-auto"
         />
 
-        {/* Form Content */}
         <Card className="mt-6">
           <CardHeader>
             <div className="flex items-center space-x-3">
@@ -179,10 +152,9 @@ const StepperHome = () => {
               </div>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent >
             <Form {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmit)} >
-                {/* Render Current Step Component with methods prop */}
                 <CurrentStepComponent methods={methods} />
                 <div className="flex justify-between pt-6">
                   <Button
