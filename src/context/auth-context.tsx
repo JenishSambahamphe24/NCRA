@@ -122,7 +122,6 @@ export const useAuthStore = create<AuthStore>()(
             await logoutApi();
             
       toast.success("Logged out successfully");
-      // Redirect to login page after successful logout
       redirect({ to: "/login" });
           }
         } catch (error) {

@@ -4,12 +4,80 @@ import React, { useState } from "react"; // Add useState import
 import { useForm } from "react-hook-form";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { MapPin, DollarSign, Building, Users, UserCheck, Upload, User2 } from "lucide-react";
+import { AddressInfo } from "../forms/AddressInfo";
+import { FinancialInfo } from "../forms/FinancialInfo";
+import { BasicInfo } from "../forms/BasicInfo";
+import { CommitteeForm } from "../forms/CommitteInfo";
+import { ExecutiveForm } from "../forms/ExecutiveForm";
+import { DocUploadForm } from "../forms/DocUploadForm";
+import { OfficialDocForm } from "../forms/OfficialDocForm";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { steps } from "../hooks/useStepForm";
+import { useCallback } from "react";
+import { useSearch } from "@tanstack/react-router";
+import { useCooperative, CooperativeProvider } from "../cooperativeContext";
 
+export const steps = [
+  {
+    id: 'basic',
+    title: 'Basic Info',
+    description: 'Provide basic information about the cooperative.',
+    icon: Building,
+    component: BasicInfo,
+  },
+  {
+    id: 'address',
+    title: 'Address Info',
+    description: 'Enter the address details of the cooperative.',
+    icon: MapPin,
+    component: AddressInfo,
+  },
+  {
+    id: 'committee',
+    title: 'Committee',
+    description: 'Enter the Committee details of the cooperative.',
+    icon: User2,
+    component: CommitteeForm,
+  },
 
+  {
+    id: 'officialDocuments',
+    title: 'Other details',
+    description: 'Enter the details of the cooperative.',
+    icon: Upload,
+    component: OfficialDocForm,
+  },
+  {
+    id: 'documents',
+    title: 'Registration Documents',
+    description: 'Enter the Committee details of the cooperative.',
+    icon: Upload,
+    component: DocUploadForm,
+  },
+
+  {
+    id: 'executive',
+    title: 'Executive Members',
+    description: 'Enter the executive details of the cooperative.',
+    icon: UserCheck,
+    component: ExecutiveForm,
+  },
+  {
+    id: 'financial',
+    title: 'Financial Info',
+    description: 'Provide financial details of the cooperative.',
+    icon: DollarSign,
+    component: FinancialInfo,
+  },
+  {
+    id: 'coopsMember',
+    title: 'Cooperative member',
+    description: 'Upload cooperative member.',
+    icon: Users,
+    component: OfficialDocForm,
+  },
+];
 const StepIndicator = ({ steps, currentStep, className }) => {
   return (
     <div className={cn("w-full py-2", className)}>
@@ -81,10 +149,10 @@ const StepIndicator = ({ steps, currentStep, className }) => {
     </div>
   );
 };
-
 const StepperHome = () => {
   const [currentStep, setCurrentStep] = useState(0);
-
+  const search = useSearch({ from: '/cooperative-form' })
+  const email = search.email
   const methods = useForm({
     defaultValues: {
       province: "",
@@ -99,82 +167,70 @@ const StepperHome = () => {
   const currentStepData = steps[currentStep];
   const CurrentStepComponent = currentStepData.component;
 
-  const handleNext = async () => {
-    const isValid = await methods.trigger();
-
-    if (isValid) {
-      if (currentStep < steps.length - 1) {
-        setCurrentStep(prev => prev + 1);
-      } else {
-        console.log('Form submitted!', methods.getValues());
-      }
+  const handleNext = useCallback(() => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(prev => prev + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, [currentStep]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (currentStep > 0) {
       setCurrentStep(prev => prev - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
-
-  const onSubmit = async (data) => {
-    await handleNext();
-  };
+  }, [currentStep]);
 
   return (
-    <div className="p-3 sm:p-4">
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-800 text-center mb-1">
-          Cooperative Registration Form
-        </h1>
-        <p className="text-gray-600 text-center mb-4 text-sm">
-          Please fill out all the required information in each step
-        </p>
-        <StepIndicator
-          steps={steps}
-          currentStep={currentStep}
-          className="w-full overflow-auto"
-        />
+    <CooperativeProvider>
+      <div className="p-3 sm:p-4">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-800 text-center mb-1">
+            Cooperative Registration Form
+          </h1>
+          <p className="text-gray-600 text-center mb-4 text-sm">
+            Please fill out all the required information in each step
+          </p>
 
-        <Card className="mt-6">
-          <CardHeader>
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <currentStepData.icon className="h-6 w-6 text-blue-600" />
-              </div>
-              <div>
-                <CardTitle className="text-lg sm:text-xl">
-                  {currentStepData.title}
-                </CardTitle>
-                {currentStepData.description && (
-                  <CardDescription>{currentStepData.description}</CardDescription>
-                )}
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent >
-            <Form {...methods}>
-              <form onSubmit={methods.handleSubmit(onSubmit)} >
-                <CurrentStepComponent methods={methods} />
-                <div className="flex justify-between pt-6">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handlePrevious}
-                    disabled={currentStep === 0}
-                  >
-                    Previous
-                  </Button>
-                  <Button type="submit">
-                    {currentStep === steps.length - 1 ? 'Submit Form' : 'Next Step'}
-                  </Button>
+          <StepIndicator
+            steps={steps}
+            currentStep={currentStep}
+            className="w-full overflow-auto"
+          />
+
+          <Card className="mt-6">
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <currentStepData.icon className="h-6 w-6 text-blue-600" />
                 </div>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
+                <div>
+                  <CardTitle className="text-lg sm:text-xl">
+                    {currentStepData.title}
+                  </CardTitle>
+                  {currentStepData.description && (
+                    <CardDescription>{currentStepData.description}</CardDescription>
+                  )}
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <Form {...methods}>
+                <CurrentStepComponent
+                  methods={methods}
+                  email={email}
+                  currentStep={currentStep}
+                  onNext={handleNext}
+                  onPrevious={handlePrevious}
+                  isLastStep={currentStep === steps.length - 1}
+                  isFirstStep={currentStep === 0}
+                />
+              </Form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    </CooperativeProvider>
   );
 };
 

@@ -4,6 +4,13 @@ import { TCooperativeInfo } from "@/types/cooperative.type";
 const BASE_ENDPOINT = "/CooperativeInfo";
 const BASE_POST_ENDPOINT = "/CooperativeInfo/create";
 
+export async function getCooperativeInfoByEmail(email: string) {
+  const response = await fetch<TCooperativeInfo>({
+    endpoint: `CooperativeInfo/${email}`,
+  });
+  return response;
+}
+
 export async function createCooperativeInfo(data: TCooperativeInfo) {
   const formData = new FormData();
   for (const key in data) {
@@ -42,9 +49,4 @@ export async function updateCooperativeInfo({ id, ...data }: TCooperativeInfo) {
 }
 
 
-export async function getCooperativeInfoByEmail(email: string) {
-  const response = await fetch<TCooperativeInfo>({
-    endpoint: `${BASE_ENDPOINT}/${email}`,
-  });
-  return response;
-}
+

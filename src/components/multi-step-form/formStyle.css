@@ -1,0 +1,22 @@
+.table-head {
+    color: #ffffff;
+    border: 1px solid #ddd;
+}
+
+.table-head h1 {
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.table-body-cell {
+    border: 1px solid #c2c2c2;
+    padding: 4px;
+    text-align: left;
+}
+
+.table-body-cell h1 {
+    color: #052D6A;
+    font-size: 12px;
+}

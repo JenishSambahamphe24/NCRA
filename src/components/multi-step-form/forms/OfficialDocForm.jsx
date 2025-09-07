@@ -18,23 +18,16 @@ export const OfficialDocForm = ({ methods, fiscalYears }) => {
                     name="fiscalYearId"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>
-                                Fiscal Year <span className="text-red-500">*</span>
-                            </FormLabel>
+                            <FormLabel required>Fiscal Year</FormLabel>
                             <FormControl>
-                                <Select
-                                    onValueChange={(value) => field.onChange(Number(value))}
-                                    value={field.value?.toString()}
-                                >
+                                <Select onValueChange={field.onChange} value={field.value}>
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select fiscal year" />
+                                        <SelectValue placeholder="Select fiscalYear" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {years.map((fy) => (
-                                            <SelectItem key={fy.id} value={fy.id.toString()}>
-                                                {fy.yearNepali} / {fy.yearEnglish}
-                                            </SelectItem>
-                                        ))}
+                                        <SelectItem value="Federal">Federal</SelectItem>
+                                        <SelectItem value="Province">Province</SelectItem>
+                                        <SelectItem value="LocalLevel">Local Level</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </FormControl>
@@ -43,97 +36,15 @@ export const OfficialDocForm = ({ methods, fiscalYears }) => {
                     )}
                 />
             </Grid>
-
-            <Grid size={{ xs: 12, sm: 2.5 }}>
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={methods.control}
-                    name="auditReport"
-                    render={({ field: { value, onChange, ...field } }) => (
+                    name="numberOfOCMeetings"
+                    render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Audit Report</FormLabel>
+                            <FormLabel required>Number of total OC meeting </FormLabel>
                             <FormControl>
-                                <Input
-                                    type="file"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    onChange={(e) => {
-                                        const file = e.target.files?.[0];
-                                        if (file) onChange(file);
-                                    }}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </Grid>
-
-            <Grid size={{ xs: 12, sm: 2.5 }}>
-                <FormField
-                    control={methods.control}
-                    name="taxClearance"
-                    render={({ field: { value, onChange, ...field } }) => (
-                        <FormItem>
-                            <FormLabel>Tax Clearance</FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="file"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    onChange={(e) => {
-                                        const file = e.target.files?.[0];
-                                        if (file) onChange(file);
-                                    }}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-            </Grid>
-
-            <Grid size={{ xs: 12, sm: 2.5 }}>
-                <FormField
-                    control={methods.control}
-                    name="boardMeetingDecision"
-                    render={({ field: { value, onChange, ...field } }) => (
-                        <FormItem>
-                            <FormLabel>Board Meeting Decision</FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="file"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    onChange={(e) => {
-                                        const file = e.target.files?.[0];
-                                        if (file) onChange(file);
-                                    }}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </Grid>
-
-            <Grid size={{ xs: 12, sm: 2.5 }}>
-                <FormField
-                    control={methods.control}
-                    name="annualMeetingAttendance"
-                    render={({ field: { value, onChange, ...field } }) => (
-                        <FormItem>
-                            <FormLabel>Annual Meeting Attendance</FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="file"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    onChange={(e) => {
-                                        const file = e.target.files?.[0];
-                                        if (file) onChange(file);
-                                    }}
-                                    {...field}
-                                />
+                                <Input type='number'  {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -144,20 +55,12 @@ export const OfficialDocForm = ({ methods, fiscalYears }) => {
             <Grid size={{ xs: 12, sm: 3 }}>
                 <FormField
                     control={methods.control}
-                    name="annualMeetingDecision"
-                    render={({ field: { value, onChange, ...field } }) => (
+                    name="dateOfGAM"
+                    render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Annual Meeting Decision</FormLabel>
+                            <FormLabel required>Date of General assembly meeting (GAM) </FormLabel>
                             <FormControl>
-                                <Input
-                                    type="file"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    onChange={(e) => {
-                                        const file = e.target.files?.[0];
-                                        if (file) onChange(file);
-                                    }}
-                                    {...field}
-                                />
+                                <Input type='number'  {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -165,14 +68,175 @@ export const OfficialDocForm = ({ methods, fiscalYears }) => {
                 />
             </Grid>
 
-
-            <Grid size={{ xs: 12, sm: 3 }}>
+            <Grid size={{ xs: 12, sm: 2 }}>
                 <FormField
                     control={methods.control}
-                    name="electionRelatedDoc"
+                    name="noOfParticipantsInGAM"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel required>Number of Participants in GAM</FormLabel>
+                            <FormControl>
+                                <Input type='number' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
+                <FormField
+                    control={methods.control}
+                    name="participantPercentage"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel required>Participants Percentage</FormLabel>
+                            <FormControl>
+                                <Input type='number' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
+                <FormField
+                    control={methods.control}
+                    name="dataEnteredBy"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel required>Data Entered By</FormLabel>
+                            <FormControl>
+                                <Input type='text' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
+                <FormField
+                    control={methods.control}
+                    name="position"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel required>Position</FormLabel>
+                            <FormControl>
+                                <Input type='text' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
+                <FormField
+                    control={methods.control}
+                    name="phoneNo"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel required>Phone Number</FormLabel>
+                            <FormControl>
+                                <Input type='number' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
+                <FormField
+                    control={methods.control}
+                    name="dataEntryDate"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel required>Data entry date</FormLabel>
+                            <FormControl>
+                                <Input type='date' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
+                <FormField
+                    control={methods.control}
+                    name="dataEnteredBy"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel required>Data verified By</FormLabel>
+                            <FormControl>
+                                <Input type='text' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
+                <FormField
+                    control={methods.control}
+                    name="position"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel required>Verifier Position </FormLabel>
+                            <FormControl>
+                                <Input type='text' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
+                <FormField
+                    control={methods.control}
+                    name="verifierPhone"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel required>Verifier Phone Number</FormLabel>
+                            <FormControl>
+                                <Input type='number' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+
+            <Grid size={{ xs: 12, sm: 2 }}>
+                <FormField
+                    control={methods.control}
+                    name="dataEntryDate"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel required>Data verified date</FormLabel>
+                            <FormControl>
+                                <Input type='date' {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </Grid>
+
+            {/* Declare checkBox */}
+
+            <Grid size={{ xs: 12, sm: 12 }}>
+                <FormField
+                    control={methods.control}
+                    name="Declaration letter"
                     render={({ field: { value, onChange, ...field } }) => (
                         <FormItem>
-                            <FormLabel>Election Related Documents</FormLabel>
+                            <FormLabel>A signed declaration letter</FormLabel>
                             <FormControl>
                                 <Input
                                     type="file"
@@ -190,29 +254,7 @@ export const OfficialDocForm = ({ methods, fiscalYears }) => {
                 />
             </Grid>
 
-            <Grid size={{ xs: 12, sm: 3 }}>
-                <FormField
-                    control={methods.control}
-                    name="otherDoc"
-                    render={({ field: { value, onChange, ...field } }) => (
-                        <FormItem>
-                            <FormLabel>Other Documents</FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="file"
-                                    accept=".pdf,.jpg,.jpeg,.png"
-                                    onChange={(e) => {
-                                        const file = e.target.files?.[0];
-                                        if (file) onChange(file);
-                                    }}
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-            </Grid>
+
 
             <Grid size={{ xs: 12, sm: 12 }}>
                 <FormField

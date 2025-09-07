@@ -19,14 +19,12 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log('📡 Response received from:', response.config.url);
     return response;
   },
   async (error) => {
     console.error('📡 Request failed:', error.response?.status, error.response?.data);
-    
+
     if (error.response && error.response.status === 401) {
-      console.log('🚨 401 Unauthorized - clearing auth and redirecting');
       const { useAuthStore } = await import('@/context/auth-context');
       await useAuthStore.getState().logout();
       if (typeof window !== 'undefined') {
